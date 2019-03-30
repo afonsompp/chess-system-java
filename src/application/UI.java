@@ -5,8 +5,9 @@ import chess.ChessPiece;
 public class UI {
 	public static void printBoard(ChessPiece[][] piece) {
 		for (int i = 0; i < piece.length; i++) {
-			System.out.print((8-i) + " ");
+			System.out.print((8-i));
 			for (int j = 0; j < piece.length; j++) {
+				System.out.print(" ");
 				printPiece(piece[i][j]);
 			}
 			System.out.println();
@@ -16,7 +17,7 @@ public class UI {
 	
 	private static void printPiece(ChessPiece piece) {
 		if (piece == null) {
-			System.out.print("- ");
+			System.out.print("-");
 		} else {
 			System.out.print(piece);
 		}
