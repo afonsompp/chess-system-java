@@ -67,17 +67,31 @@ public class UI {
 		for (int i = 0; i < piece.length; i++) {
 			System.out.print((8 - i) + " ");// mostrar o numero das colunas do tabuleiro
 			for (int j = 0; j < piece.length; j++) {
-				printPiece(piece[i][j]); // mostra as peças do tabuleiro
+				printPiece(piece[i][j], false); // mostra as peças do tabuleiro
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
-
-	private static void printPiece(ChessPiece piece) { // mostra as peças
+	
+	public static void printBoard(ChessPiece[][] piece, boolean[][] possibleMoves) {
+		for (int i = 0; i < piece.length; i++) {
+			System.out.print((8 - i) + " ");// mostrar o numero das colunas do tabuleiro
+			for (int j = 0; j < piece.length; j++) {
+				printPiece(piece[i][j], possibleMoves[i][j]); // mostra as peças do tabuleiro
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
+	private static void printPiece(ChessPiece piece, boolean background) { // mostra as peças
+		if (background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
 		if (piece == null) {
 
-			System.out.print("-");
+			System.out.print("-" + ANSI_RESET);
 
 		}
 
