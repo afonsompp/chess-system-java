@@ -29,7 +29,7 @@ public class Board {
 		return pieces[row][colunm];
 	}
 
-	public Piece piece(Position position) { //cria uma peça no tabuleiro
+	public Piece piece(Position position) { // uma peça no tabuleiro
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");
 		}
@@ -43,7 +43,21 @@ public class Board {
 		pieces[position.getRow()][position.getColumn()] = piece; //define a linha e a coluna que a peça está
 		piece.position = position; // passa a posição para o atributo position
 	}
-
+	
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Position not on the board");
+		}
+		if (piece(position) == null) {
+			return null;
+		}
+		
+		Piece aux = piece(position);
+		aux.position = null; //deixa nulo o atributo position
+		pieces[position.getRow()][position.getColumn()] = null; // deixa nulo a peça na posição que for passada como parametro
+		return aux;
+	}
+	
 	public boolean positionExists(int row, int colunm) { // verifica se uma posição existe em um tabuleiro de xadrez
 		return row >=0 && row <= rows && colunm >= 0 && colunm <= colunms; 
 	}

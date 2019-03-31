@@ -1,10 +1,14 @@
 package application;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 
 public class UI {
-	//variaveis usadas para mudar a cor no terminal 
+	// variaveis usadas para mudar a cor no terminal
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -40,6 +44,24 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+	
+	//limpando o terminal
+	// https://stackoverflow.com/questions/2979383/java-clear-the-console 
+	public static void clearScreen() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	public static ChessPosition readChessPosition(Scanner read) {
+		try {
+			String s = read.nextLine();
+			char colunm = s.charAt(0);
+			int row = Integer.parseInt(s.substring(1));
+			return new ChessPosition(colunm, row);
+		} catch (RuntimeException e) {
+			throw new InputMismatchException("Error istantiating ChessPosition. Valid values are from a1 to h8");
+		}
+	}
 
 	public static void printBoard(ChessPiece[][] piece) {
 		for (int i = 0; i < piece.length; i++) {
@@ -61,10 +83,9 @@ public class UI {
 
 		else {
 			if (piece.getColor() == Color.WHITE) {
-				System.out.print(ANSI_WHITE + piece + ANSI_RESET); //muda a cor das peças para branco
-			}
-			else {
-				System.out.print(ANSI_YELLOW + piece + ANSI_RESET); //muda a cor das peças para amarelo
+				System.out.print(ANSI_WHITE + piece + ANSI_RESET); // muda a cor das peças para branco
+			} else {
+				System.out.print(ANSI_YELLOW + piece + ANSI_RESET); // muda a cor das peças para amarelo
 			}
 		}
 		System.out.print(" ");
