@@ -65,7 +65,7 @@ public class UI {
 
 	public static void printBoard(ChessPiece[][] piece) {
 		for (int i = 0; i < piece.length; i++) {
-			System.out.print((8 - i));// mostrar o numero das colunas do tabuleiro
+			System.out.print((8 - i) + " ");// mostrar o numero das colunas do tabuleiro
 			for (int j = 0; j < piece.length; j++) {
 				printPiece(piece[i][j]); // mostra as peças do tabuleiro
 			}

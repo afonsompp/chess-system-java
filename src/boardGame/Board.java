@@ -1,47 +1,48 @@
 package boardGame;
 
 public class Board {
-	private int rows;
-	private int colunms;
-	private Piece[][] pieces;
 
-	public Board(int rows, int colunms) {
-		if (rows < 1 || colunms < 1) {
-			throw new BoardException("Error creating board: there must be at least 1 row and 1 colunm");
+	private int rows;
+	private int columns;
+	private Piece[][] pieces;
+	
+	public Board(int rows, int columns) {
+		if (rows < 1 || columns < 1) {
+			throw new BoardException("Error creating board: there must be at least 1 row and 1 column");
 		}
 		this.rows = rows;
-		this.colunms = colunms;
-		pieces = new Piece[rows][colunms];
+		this.columns = columns;
+		pieces = new Piece[rows][columns];
 	}
 
 	public int getRows() {
 		return rows;
 	}
 
-	public int getColunms() {
-		return colunms;
+	public int getColumns() {
+		return columns;
 	}
-
-	public Piece piece(int row, int colunm) {
-		if (!positionExists(row,colunm)) {
+	
+	public Piece piece(int row, int column) {
+		if (!positionExists(row, column)) {
 			throw new BoardException("Position not on the board");
 		}
-		return pieces[row][colunm];
+		return pieces[row][column];
 	}
-
-	public Piece piece(Position position) { // uma peça no tabuleiro
+	
+	public Piece piece(Position position) {
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");
 		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
-
-	public void placePiece(Piece piece, Position position) { // define o espeço que uma peça vai ocupar no tabuleiro
+	
+	public void placePiece(Piece piece, Position position) {
 		if (thereIsAPiece(position)) {
-			throw new BoardException("There is  already a piece on position "+ position);
+			throw new BoardException("There is already a piece on position " + position);
 		}
-		pieces[position.getRow()][position.getColumn()] = piece; //define a linha e a coluna que a peça está
-		piece.position = position; // passa a posição para o atributo position
+		pieces[position.getRow()][position.getColumn()] = piece;
+		piece.position = position;
 	}
 	
 	public Piece removePiece(Position position) {
@@ -51,25 +52,24 @@ public class Board {
 		if (piece(position) == null) {
 			return null;
 		}
-		
 		Piece aux = piece(position);
-		aux.position = null; //deixa nulo o atributo position
-		pieces[position.getRow()][position.getColumn()] = null; // deixa nulo a peça na posição que for passada como parametro
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
 		return aux;
 	}
 	
-	public boolean positionExists(int row, int colunm) { // verifica se uma posição existe em um tabuleiro de xadrez
-		return row >=0 && row <= rows && colunm >= 0 && colunm <= colunms; 
+	private boolean positionExists(int row, int column) {
+		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
-
-	public boolean positionExists(Position position) { // verifica a posição existe usando o metodo de cima
+	
+	public boolean positionExists(Position position) {
 		return positionExists(position.getRow(), position.getColumn());
 	}
 	
-	public boolean thereIsAPiece(Position position) { //verifica se há uma peça na posição
+	public boolean thereIsAPiece(Position position) {
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");
 		}
-		return piece(position) != null; //se a peça na posição passada for diferente de nulo há uma peça
+		return piece(position) != null;
 	}
 }
