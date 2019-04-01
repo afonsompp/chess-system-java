@@ -11,7 +11,10 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 
 public class Program {
-
+	public static final String ANSI_RESET = "\u001B[0m";
+	
+	public static final String ANSI_RED = "\u001B[31m";
+	
 	public static void main(String[] args) {
 		Scanner read = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
@@ -38,11 +41,11 @@ public class Program {
 				}
 			}
 			catch(ChessException e) {
-				System.out.println(e.getMessage());
+				System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
 				read.nextLine();
 			}
 			catch(InputMismatchException e) {
-				System.out.println(e.getMessage());
+				System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
 				read.nextLine();
 			}
 		}
